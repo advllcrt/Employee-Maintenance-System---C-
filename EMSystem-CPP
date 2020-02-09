@@ -1,0 +1,552 @@
+#include<iostream> // uses the objects cin, cout, and clog for sending data to and from the standard streams input, output, error(unbuffered) and log (buffered)
+#include<fstream> // input/output stream class to operate on file
+#include<cstdio> // input/output operations can also be performed in c ++ using the c standard i and o library
+#include<stdio.h> // input/output operations
+#include<cstring>
+#include <string>
+#include<cstdlib>
+#include<stdlib.h>
+#include<iomanip>
+#include<dos.h>
+#include<conio.h> //#include <ctime> //#include <dos.h>
+#include<windows.h> //#include <ctime> //#include <dos.h>
+#define max 20
+
+using namespace std;
+struct employee
+{long int code, age, hired; 
+ char lname[20], fname[20], department[20], position[20], status[20], gender[20];};
+
+int num; char another;
+FILE *fp, *ft;
+employee emp[max], tempemp[max], sortemp[max], sortemp1[max];
+int main()
+{system("cls");
+void welcome();
+void reg();
+void records();
+void deletes();
+void edit();
+void search();
+char option;
+void menu();
+
+welcome();
+{cout<<"\n ";
+system("title LOG-IN");
+system("color f5");
+string username, password;
+cout<<"\n";
+cout<<"\n\t\t\t           USERNAME : ";cin>>username; 
+  cout<<"\t\t\t           PASSWORD : ";cin>>password; 
+	if ((username == "admin") && (password == "*****"))
+	{
+	cout<<"\n\t\t\t\t Successfully Log-in! ";
+	cout<<"\n\n\t\t\t\t\t\t ";
+	Sleep(50);cout<<"W";
+	Sleep(50);cout<<"E";
+	Sleep(50);cout<<"L";
+	Sleep(50);cout<<"C";
+	Sleep(50);cout<<"O";
+	Sleep(50);cout<<"M";
+	Sleep(50);cout<<"E";
+	Sleep(50);cout<<" ";
+	Sleep(50);cout<<"T";
+	Sleep(50);cout<<"O";cout<<"\n\t\t\t ";
+	Sleep(50);cout<<"E";
+	Sleep(50);cout<<"M";
+	Sleep(50);cout<<"P";
+	Sleep(50);cout<<"L";
+	Sleep(50);cout<<"O";
+	Sleep(50);cout<<"Y";
+	Sleep(50);cout<<"E";
+	Sleep(50);cout<<"E";
+	Sleep(50);cout<<" ";
+	Sleep(50);cout<<"M";
+	Sleep(50);cout<<"A";
+	Sleep(50);cout<<"I";
+	Sleep(50);cout<<"N";
+	Sleep(50);cout<<"T";
+	Sleep(50);cout<<"E";
+	Sleep(50);cout<<"N";
+	Sleep(50);cout<<"A";
+	Sleep(50);cout<<"N";
+	Sleep(50);cout<<"C";
+	Sleep(50);cout<<"E";
+	Sleep(50);cout<<" ";
+	Sleep(50);cout<<"S";
+	Sleep(50);cout<<"Y";
+	Sleep(50);cout<<"S";
+	Sleep(50);cout<<"T";
+	Sleep(50);cout<<"E";
+	Sleep(50);cout<<"M";cout<<"\n";
+	Sleep(50);	}	
+	
+	else{
+	cout<<"\n\t\t\t\t Incorrect Username or Password! ";
+	system("cls");
+	return 0;}
+	}
+
+
+menu();
+while((option=cin.get())!='Q')
+ {
+  switch(option)
+  {case '0':welcome();break;
+   case '1':reg();break;
+   case '2':records();break;
+   case '3':deletes();break;
+   case '4':edit();break;
+   case '5':search();break;}
+	menu();}
+ return 0;
+}
+
+void welcome()
+{
+system("title HOME");
+system("color f5");
+system("cls");
+cout<<"\n";
+cout<<"\n\n\t\t\t\t\t  ";
+	Sleep(50);cout<<"E";
+	Sleep(50);cout<<"M";
+	Sleep(50);cout<<"P";
+	Sleep(50);cout<<"L";
+	Sleep(50);cout<<"O";
+	Sleep(50);cout<<"Y";
+	Sleep(50);cout<<"E";
+	Sleep(50);cout<<"E";
+	Sleep(50);cout<<" ";
+	Sleep(50);cout<<"M";
+	Sleep(50);cout<<"A";
+	Sleep(50);cout<<"I";
+	Sleep(50);cout<<"N";
+	Sleep(50);cout<<"T";
+	Sleep(50);cout<<"E";
+	Sleep(50);cout<<"N";
+	Sleep(50);cout<<"A";
+	Sleep(50);cout<<"N";
+	Sleep(50);cout<<"C";
+	Sleep(50);cout<<"E";
+	Sleep(50);cout<<" ";
+	Sleep(50);cout<<"S";
+	Sleep(50);cout<<"Y";
+	Sleep(50);cout<<"S";
+	Sleep(50);cout<<"T";
+	Sleep(50);cout<<"E";
+	Sleep(50);cout<<"M";
+	cout<<"\t\t ";	
+	Sleep(500);	
+printf("\n\t ************************************************************************************************");
+printf("\n\t ************************************************************************************************");
+printf("\n\t *****************************                                      *****************************");
+printf("\n\t *****************************  EMPLOYEE   MAIN   ANCE   SYSTEMSYS  *****************************");
+printf("\n\t *****************************  EMP        MAIN   ANCE   SY         *****************************");
+printf("\n\t *****************************  EMPLOYEE   MAINT NANCE   SYSTEMSYS  *****************************");
+printf("\n\t *****************************  EMP        MA NT NA CE          YS  *****************************");
+printf("\n\t *****************************  EMP        MA  TEN  CE          YS  *****************************");
+printf("\n\t *****************************  EMPE       MA  TEN  CE          YS  *****************************");
+printf("\n\t *****************************  EMP        MA  TEN  CE          YS  *****************************");
+printf("\n\t *****************************  EMPLOYEE   MA   E   CE   SYSTEMSYS  *****************************");
+printf("\n\t *****************************                                      *****************************");
+printf("\n\t ************************************************************************************************");
+printf("\n\t ************************************************************************************************");
+}
+
+
+void menu()
+{
+system("title MAIN MENU");
+system("color f5");
+system("cls");
+cout<<"          ";
+printf("\n\t ^^************************************************************************************************^^");
+printf("\n\t ^^********************************** EMPLOYEE MAINTENANCE SYSTEM *********************************^^");
+printf("\n\t ^^************************************************************************************************^^");
+printf("\n\n\t ^^************************************************************************************************^^");
+printf("\n\t ^^***************************                                          ***************************^^");
+ cout<<"\n\t ^^***************************   Press 1---> Register New Employee      ***************************^^";
+ cout<<"\n\t ^^***************************   Press 2---> Records of the Employees   ***************************^^";
+ cout<<"\n\t ^^***************************   Press 3---> Delete An Employee         ***************************^^";
+ cout<<"\n\t ^^***************************   Press 4---> Modify An Employee         **************************^^";
+ cout<<"\n\t ^^***************************   Press 5---> Search A Record            ***************************^^";
+ cout<<"\n\t ^^***************************   Press Q===> Quit Program               ***************************^^";
+printf("\n\t ^^***************************                                          ***************************^^");
+printf("\n\t ^^************************************************************************************************^^");
+printf("\n\t ^^************************************************************************************************^^");
+ cout<<"\n\n\t\t\t      Please Select Your Option => ";
+}
+
+
+void reg()
+{
+int i=num;
+int code, hired, age;
+char a, lname, fname, department, gender, position, status;
+num+=1;
+
+fseek(fp,0,SEEK_END);
+another ='Y';
+while(another == 'Y' || another == 'y')
+    {
+system("title REGISTER");
+system("cls");
+  int i=num;
+
+  num+=1;
+printf("\n\t ^^************************************************************************************************^^");
+printf("\n\t ^^*************************************** REGISTER NEW EMPLOYEE **********************************^^");
+printf("\n\t ^^************************************************************************************************^^");
+  cout<<"\n\n";
+  cout<<"\t Employee Code #  : ";cin>>emp[i].code;
+  cout<<"\t Date Hired (MDY) : ";cin>>emp[i].hired;
+  cout<<"\t Last Name        : ";cin>>emp[i].lname;
+  cout<<"\t First Name       : ";cin>>emp[i].fname;
+  cout<<"\t Age              : ";cin>>emp[i].age;
+  cout<<"\t Gender           : ";cin>>emp[i].gender;
+  cout<<"\t Department       : ";cin>>emp[i].department;
+  cout<<"\t Position         : ";cin>>emp[i].position;
+  cout<<"\t Status           : ";cin>>emp[i].status;
+  cout<<"\n";
+ printf("\n\t ^^************************************************************************************************^^");
+    cout<<"\n\t\t ";
+    
+    cout<<"\n\n\t A => Save ";
+      cout<<"\n\t B => Open ";
+      cout<<"\n\t Q => Quit ";
+    cout<<"\n\n\t      Select A to Save, B to Open or Q => ";cin>>a;
+    cout<<"\n\t\t";
+    
+    if (a == 'A')
+    {
+    	cout<<"\n\t\t\t\t\t ";
+    	Sleep(50);cout<<"S";
+		Sleep(50);cout<<"A";
+		Sleep(50);cout<<"V";
+		Sleep(50);cout<<"I";
+		Sleep(50);cout<<"N";
+		Sleep(50);cout<<"G";
+		Sleep(50);cout<<".";
+		Sleep(50);cout<<".";
+		Sleep(50);cout<<".";
+		cout<<"\n\t\t\t\t The Data Has Been Saved.";	
+		Sleep(800);
+    }
+    
+    else if (a== 'B' )
+	{
+	ifstream fin;
+	std::ofstream fout("record.txt", std::ofstream::app);
+	ofstream number;
+	
+fout<<"\n\n\n Employee Code # : "<<emp[i].code;
+	fout<<"\n Date Hired (MDY): "<<emp[i].hired;
+	fout<<"\n Last Name       : "<<emp[i].lname;
+	fout<<"\n First Name      : "<<emp[i].fname;
+	fout<<"\n Age             : "<<emp[i].age;
+	fout<<"\n Gender          : "<<emp[i].gender;
+	fout<<"\n Department      : "<<emp[i].department;	   
+	fout<<"\n Position        : "<<emp[i].position;
+	fout<<"\n Status          : "<<emp[i].status;
+	fin.close();
+	fout.close();
+
+	Sleep(2000);
+	system("notepad.exe record.txt");
+	
+	
+	}
+	
+	else
+	{
+		cout<<"\n\t Invalid Input";
+	}	
+
+	cout<<"\n\t Want to Add Another Record? (Y/N): ";
+	fflush(stdin);
+    another = getchar();
+	}
+	cout<<"\n\t\t\t\t Going to Main Menu.....";
+	Sleep(1000);
+}
+
+void records()
+{
+system("title RECORDS");
+system("cls");
+ int code, hired, age; 
+ char lname, fname, department,  position, status;
+printf("\n\t\t ^^************************************************************************************************^^");
+printf("\n\t\t ^^*************************************** RECORDS OF THE EMPLOYEES *******************************^^");
+printf("\n\t\t ^^************************************************************************************************^^");
+cout<<"\n\n\t Code      Date     Hired     Last Name      First Name      Age     Department      Position      Status";
+  cout<<"\n\t--------------------------------------------------------------------------------------------------------";
+  for(int i=0; i<=num-1; i++)
+  {
+  cout<<"\n\t";
+  cout<<setw(3)<<emp[i].code;
+  cout<<setw(6)<<emp[i].hired;
+  cout<<setw(15)<<emp[i].lname;
+  cout<<setw(15)<<emp[i].fname;
+  cout<<setw(10)<<emp[i].age;
+  cout<<setw(10)<<emp[i].department;
+  cout<<setw(15)<<emp[i].position;	
+  cout<<setw(15)<<emp[i].status;
+  cout<<endl;
+  }
+  cout<<"\n\n\t Going to Main Menu.....";
+  	cout<<"\n\t Press Any Key to Continue...";
+  getch();
+}
+
+
+ void deletes()
+{
+another ='Y';
+ 	while(another == 'Y' || another == 'y')
+ 	{
+ 		system("title DELETE");
+		system("cls"); // highvideo();
+    	int code;
+    	int check;
+   		printf("\n\t ^^************************************************************************************************^^");
+   		printf("\n\t ^^************************************** DELETE AN EMPLOYEE **************************************^^");
+   		printf("\n\t ^^************************************************************************************************^^");
+		cout<<"\n\n\n\t Enter Employee Code # to Delete An Entry : ";cin>>code;
+
+		
+   		int i;
+   		for(i=0;i<=num-1;i++)
+   			{
+    		if(emp[i].code==code)
+    			{
+	 			check=i;
+    			}
+   			}
+   			
+   		for(i=0;i<=num-1;i++)
+   			{
+    		if(i==check)
+    			{
+    			continue;
+   				}
+    		else
+    			{
+    			if(i>check)
+   		 	{
+     		tempemp[i-1]=emp[i];
+    	 	}
+    	else
+    	{
+     		tempemp[i]=emp[i];
+    	}
+    			}
+        	}            
+	  num--;
+  		for(i=0;i<=num-1;i++)
+  		{
+   		emp[i]=tempemp[i];
+  		} 	
+		fclose(fp);
+   		fclose(ft);
+		remove("recordedlist.txt");
+		rename("temp.dat","recordedlist.txt");
+    	fp=fopen("recordedlist.txt","rb+");
+		cout << "\n\t Want to Delete Another Record? (Y/N) ";
+    	fflush(stdin);
+    	another = getchar();
+ 	}
+}
+
+
+void edit()
+{
+ another ='Y';
+ while(another == 'Y' || another == 'y')
+ {
+system("title MODIFY");
+system("cls");
+ int jobcode;
+printf("\n\t ^^************************************************************************************************^^");
+printf("\n\t ^^************************************** MODIFY AN EMPLOYEE **************************************^^ ");
+printf("\n\t ^^************************************************************************************************^^ ");
+ int i;
+ char j=' ';
+ void editmenu();
+ void editcode(int);
+ void edithired(int);
+ void editlname(char);
+ void editfname(char);
+ void editage(int);
+ void editdepartment(char);
+ void editposition(char);
+ void editstatus(char);
+ char option;
+cout<<"\n\n\t Enter A Jobcode To Modify An Entry : ";cin>>jobcode;
+  cout<<"\n\t Going to Edit Employee # ...         "<<jobcode;
+  	Sleep(2000);	  
+ editmenu();
+ for(i=0;i<=num-1;i++)
+   {
+    if(emp[i].code==jobcode)
+    {
+	while((option=cin.get())!='Q')
+	{
+      switch(option)
+      {
+       case 'A':
+         	editcode(i);break;
+       case 'B':
+            edithired(i);break;
+       case 'C':
+            editlname(i);break;
+       case 'D':
+            editfname(i);break;
+       case 'E':
+       		editage(i);break;
+       case 'F':
+	   		editdepartment(i);break;
+       case 'G':
+            editposition(i);break;  
+	   case 'H':
+			editstatus(i);break; 
+      }
+   editmenu();
+	}
+
+   	cout<<"\n\t Do you want to Modify Another Record? (Y/N): ";
+    fflush(stdin);
+    another = getchar(); 
+    }
+  }	
+ }	   
+}
+
+
+void editmenu()
+{
+system("title MODIFY");
+system("cls");
+         cout<<"What Do You Want To Modify?";
+  cout<<"\n\n\t A -> Code        : ";
+    cout<<"\n\t B -> Date Hired  :" ;
+    cout<<"\n\t C -> Last Name   : ";
+    cout<<"\n\t D -> First Name  : ";
+    cout<<"\n\t E -> Age         : ";
+    cout<<"\n\t F -> Department  : ";
+    cout<<"\n\t G -> Position    : ";
+    cout<<"\n\t H -> Status      : ";
+    cout<<"\n\t Q => QUIT          ";
+    cout<<"\n\n\t Enter Your Choice => ";
+}
+
+
+void editcode(int i)
+{
+cout<<"\n\t Enter New Job Code     : ";cin>>emp[i].code;	cout<<"\n\t Changes Saved.";	Sleep(800);
+}
+
+void edithired(int i)
+{
+cout<<"\n\t Enter New Date Hired  : ";cin>>emp[i].hired;	cout<<"\n\t Changes Saved.";	Sleep(800);
+}
+
+void editlname(char j=' ')
+{
+cout<<"\n\t Enter New Name        : ";cin>>emp[j].lname;	cout<<"\n\t Changes Saved.";	Sleep(800);
+}
+
+void editfname(char j=' ')
+{
+cout<<"\n\t Enter New Name        : ";cin>>emp[j].fname;	cout<<"\n\t Changes Saved.";	Sleep(800);
+}
+
+void editage(int i)
+{
+cout<<"\n\t Enter New Age         : ";cin>>emp[i].age;	cout<<"\n\t Changes Saved.";	Sleep(800);
+}
+
+void editdepartment(char j=' ')
+{
+cout<<"\n\t Enter New Department  : ";cin>>emp[j].department;	cout<<"\n\t Changes Saved.";	Sleep(800);
+}
+
+void editposition(char j=' ')
+{
+cout<<"\n\tE`nter New Position     : ";cin>>emp[j].position;	cout<<"\n\t Changes Saved.";	Sleep(800);
+}
+
+void editstatus(char j=' ')
+{
+cout<<"\n\t Enter New Status      : ";cin>>emp[j].status;	cout<<"\n\t Changes Saved.";	Sleep(800);
+}
+
+
+void search()
+{
+ system("title SEARCH");
+ system("cls");
+ printf("\n\t\t ^^************************************************************************************************^^ ");
+ printf("\n\t\t ^^*************************************** SEARCH AN ENTRY ****************************************^^ ");
+ printf("\n\t\t ^^************************************************************************************************^^ ");
+ int i=num;
+ int jobcode;
+ int code, hired, age; 
+ char a, lname, fname, gender, department, position, status;
+ num+=1;
+
+cout<<"\n\n\n\t Note: You Can Search Only By Jobcode Of An Employee.";
+    cout<<"\n\t Enter Code # of The Employee : ";cin>>jobcode;
+ 
+ for(int i=0;i<=num-1;i++)
+   {
+    if(emp[i].code==jobcode)
+    {
+cout<<"\n\n\t Code      Date    Hired     Last Name      First Name      Age     Department      Position      Status";
+  cout<<"\n\t -------------------------------------------------------------------------------------------------------";
+  cout<<"\n\n\t";
+  cout<<setw(6)<<emp[i].code;
+  cout<<setw(6)<<emp[i].hired;
+  cout<<setw(10)<<emp[i].lname;
+  cout<<setw(10)<<emp[i].fname;
+  cout<<setw(6)<<emp[i].age;
+  cout<<setw(10)<<emp[i].department;
+  cout<<setw(10)<<emp[i].position;
+  cout<<setw(10)<<emp[i].status;
+  cout<<"\n";
+ 	}
+  }
+ cout<<"\n\t Going to Main Menu.....";
+
+    cout<<"\n\n\t A => Open ";
+      cout<<"\n\t Q => Quit ";
+    cout<<"\n\n\t      Select A to Open or Q to Quit => ";cin>>a;
+    cout<<"\n\t\t";
+
+    if (a== 'A' )
+	{
+	ifstream fin;
+	std::ofstream fout("search.txt", std::ofstream::app);
+
+fout<<"\n\n\n Employee Code # : "<<code;
+	fout<<"\n Date Hired (MDY): "<<hired;
+	fout<<"\n Last Name       : "<<lname;
+	fout<<"\n First Name      : "<<fname;
+	fout<<"\n Age             : "<<age;
+	fout<<"\n Gender          : "<<gender;
+	fout<<"\n Department      : "<<department;	   
+	fout<<"\n Position        : "<<position;
+	fout<<"\n Status          : "<<status;
+	fin.close();
+	fout.close();
+	Sleep(1000);
+	system("notepad.exe search.txt");
+	system("cls");
+	}
+	
+	else
+	{cout<<"\n\t Invalid Input";}	
+ getch();
+}
